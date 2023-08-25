@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
+@import url("./sanitize.css");
+
+:root {
+  --black: #272829;
+  --grey: #61677a;
+  --lightgrey: #d8d9da;
+}
+
+body {
+  min-width: 360px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Muli", sans-serif;
+  background-color: var(--lightgrey);
+  padding: 22px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px 16px;
+}
+
+.key {
+  display: inline-flex;
+  justify-content: center;
+  background-color: var(--black);
+  border: 1px solid var(--grey);
+  color: var(--lightgrey);
+  padding: 18px;
+  text-align: center;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 18px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  min-width: 160px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.key[data-event] {
+  animation: show-keys 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes show-keys {
+  from {
+    transform: translateY(15vh) rotateX(120deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.key[data-event]::before {
+  display: inline-block;
+  content: "event." attr(data-event);
+  position: absolute;
+  font-size: 14px;
+  top: 0;
+  color: var(--grey);
+  transform: translateY(calc(-100% + -6px));
+}
+
+.key[data-event]:empty {
+  display: none;
+}
+
+.text {
+  display: inline-block;
+  position: absolute;
+  font-size: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: top 0.3s, opacity 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  opacity: 1;
+}
+
+.key[data-event]:not(:empty) + .text {
+  top: 32vh;
+  background-color: transparent;
+  color: var(--black);
+  border: none;
+  box-shadow: none;
+  opacity: 0;
+}
